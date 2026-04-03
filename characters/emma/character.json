@@ -1,0 +1,13 @@
+{
+    "name": "Emma",
+    "voice": "Aoede",
+    "caption_color": "#FF69B4",
+    "font_size": 64,
+    "prompt_identity": "A woman in her early 30s with shoulder-length, loosely wavy auburn-brown hair parted on the side, wearing thick black rectangular eyeglasses. She has a neutral, professional, and authentic facial expression with relaxed facial muscles. She is dressed in a dark navy blue tailored blazer buttoned at the waist, over a crisp light blue collared button-down shirt, paired with black trousers. Her arms rest naturally at her sides with relaxed hands. Highly detailed, unretouched natural skin texture: visible pores, subtle fine lines around the eyes and mouth, delicate peach fuzz, uneven natural skin tones, and a realistic organic hydration shine on the forehead and cheeks. Do not beautify, no makeup filter, raw photojournalistic realism.",
+    "background_style_guidelines": "A high-end minimalist kitchen at dawn. Soft morning light illuminates a wooden central island where baskets of fresh fruit (bananas, ripe figs) and glass jars filled with almonds and walnuts are artfully arranged. Serene and natural atmosphere. Blurred background (bokeh), soft and cinematic lighting, premium documentary aesthetic.",
+    "prompt_style": "documentary-grade realism, natural skin tones, Leica SL2 + APO-Summicron 90mm f/2, shallow DOF, high micro contrast, soft diffused window light from side, deep natural shadow gradients, subtle highlight rolloff, natural skin texture with pores, fine lines, peach fuzz, subtle color shifts, realistic hydration shine, neutral color profile, light grain, photojournalistic realism, Kodak Portra 400 film stock. Do not beautify or enhance face. Maintain absolute identity.",
+    "negative_prompt": "microphone, handheld mic, CGI, 3d render, illustration, painting, cartoon, smooth skin, airbrushed, photoshop, fear expression, screaming, panicked face, studio lighting, glossy finish, digital art, low resolution",
+    "reference_image": "reference.jpg",
+    "microphone_image": "microphone.jpg",
+    "language": "fr"
+}
