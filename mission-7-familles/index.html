@@ -115,7 +115,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
   }
   .card-illustration .art-placeholder {
@@ -294,7 +294,7 @@ function render() {
   const artPH = document.getElementById('artPH');
   if (mem.img) {
     illust.style.backgroundImage = `url(${mem.img})`;
-    illust.style.backgroundSize = 'cover';
+    illust.style.backgroundSize = 'contain';
     illust.style.backgroundPosition = 'center';
     artImg.style.display = 'none';
     artPH.style.display = 'none';
