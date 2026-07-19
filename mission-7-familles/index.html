@@ -85,13 +85,12 @@
   .card.swipe-left { transform: translateX(-120%) rotate(-5deg); opacity: 0; }
   .card.swipe-right { transform: translateX(120%) rotate(5deg); opacity: 0; }
 
-  /* Card header - speech bubble style */
+  /* Card header */
   .card-header {
     text-align: center;
     padding: 12px 20px 10px;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     color: #fff;
-    position: relative;
   }
   .card-header .family-label {
     font-family: 'Inter', sans-serif;
@@ -147,22 +146,11 @@
     border-radius: 8px;
   }
 
-  /* Name */
-  .card-name {
-    text-align: center;
-    padding: 10px 20px 6px;
-    flex-shrink: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--text);
-  }
-
-  /* Bottom bandeau - character info (mirrors card-header) */
+  /* Bottom bandeau - mirrors card-header exactly */
   .card-footer {
     text-align: center;
     padding: 12px 20px 10px;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     color: #fff;
   }
   .card-footer .char-name {
