@@ -309,7 +309,7 @@ function render() {
 
   // Illustration
   const illust = document.getElementById('cardIllustration');
-  illust.style.background = fam.bg;
+  illust.style.background = mem.img ? '#fff' : fam.bg;
   const artImg = document.getElementById('artImg');
   const artPH = document.getElementById('artPH');
   if (mem.img) {
