@@ -86,7 +86,7 @@
   /* Card header - speech bubble style */
   .card-header {
     text-align: center;
-    padding: 14px 20px 12px;
+    padding: 12px 20px 10px;
     flex-shrink: 0;
     color: #fff;
     position: relative;
@@ -98,27 +98,14 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     opacity: 0.9;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
   .card-header .family-name {
     font-family: 'Inter', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 900;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-  }
-  /* Party circle logo */
-  .party-circle {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center; justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px; font-weight: 800;
-    color: #fff;
-    margin: 6px auto 0;
-    letter-spacing: 0.02em;
   }
 
   /* Illustration */
@@ -252,7 +239,6 @@
     <div class="card-header" id="cardHeader">
       <div class="family-label">Mission Election</div>
       <div class="family-name" id="familyName">LA FRANCE INGÉRABLE</div>
-      <div class="party-circle" id="partyCircle">LFI</div>
     </div>
     <div class="card-illustration" id="cardIllustration">
       <img class="art-img" id="artImg" src="" alt="" style="display:none">
@@ -320,7 +306,6 @@ function render() {
   const header = document.getElementById('cardHeader');
   header.style.background = fam.color;
   document.getElementById('familyName').textContent = fam.name;
-  document.getElementById('partyCircle').textContent = fam.initials;
 
   // Illustration
   const illust = document.getElementById('cardIllustration');
