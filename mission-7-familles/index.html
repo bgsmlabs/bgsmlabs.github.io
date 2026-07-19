@@ -160,8 +160,8 @@
   .card-members {
     display: flex;
     justify-content: space-evenly;
-    padding: 8px 12px 12px;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    padding: 10px 12px 12px;
+    border-top: none;
     flex-shrink: 0;
     gap: 2px;
   }
@@ -173,7 +173,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 8px;
     font-weight: 400;
-    color: var(--muted);
+    color: rgba(255,255,255,0.7);
   }
   .member span { display: none; }
   .member .sil {
@@ -184,10 +184,12 @@
     align-items: center;
     justify-content: center;
     font-size: 24px;
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
   }
-  .member.active .sil { background: var(--rose); color: #fff; }
-  .member.inactive .sil { background: #eee; }
-  .member.active span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--text); }
+  .member.active .sil { background: #fff; color: var(--rose); }
+  .member.inactive .sil { background: rgba(255,255,255,0.2); }
+  .member.active span { font-family: 'Inter', sans-serif; font-weight: 600; color: #fff; }
 
   /* Navigation */
   .nav-row {
@@ -329,6 +331,7 @@ function render() {
 
   // Members
   const membersDiv = document.getElementById('cardMembers');
+  membersDiv.style.background = fam.color;
   membersDiv.innerHTML = '';
   fam.members.forEach((m, i) => {
     const isActive = i === currentMember;
