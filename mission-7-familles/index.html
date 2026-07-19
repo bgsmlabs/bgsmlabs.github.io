@@ -78,6 +78,8 @@
     display: flex;
     flex-direction: column;
     background: #fff;
+    background-size: cover;
+    background-position: center top;
     transition: transform 0.3s, opacity 0.3s;
   }
   .card.swipe-left { transform: translateX(-120%) rotate(-5deg); opacity: 0; }
@@ -90,6 +92,16 @@
     flex-shrink: 0;
     color: #fff;
     position: relative;
+    background: inherit;
+  }
+  .card-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--rose);
+    opacity: 0.92;
+    z-index: -1;
+    border-radius: 14px 14px 0 0;
   }
   .card-header .family-label {
     font-family: 'Inter', sans-serif;
@@ -164,6 +176,16 @@
     border-top: none;
     flex-shrink: 0;
     gap: 2px;
+    position: relative;
+  }
+  .card-members::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--rose);
+    opacity: 0.92;
+    z-index: -1;
+    border-radius: 0 0 14px 14px;
   }
   .member {
     display: flex;
@@ -304,20 +326,26 @@ function render() {
     btn.classList.toggle('active', i === currentFamily);
   });
 
+  // Card background from illustration
+  const card = document.getElementById('card');
+  if (mem.img) {
+    card.style.backgroundImage = `url(${mem.img})`;
+  } else {
+    card.style.backgroundImage = '';
+  }
+
   // Header
   const header = document.getElementById('cardHeader');
-  header.style.background = fam.color;
   document.getElementById('familyName').textContent = fam.name;
 
-  // Illustration
+  // Illustration area - hide placeholders when image is card bg
   const illust = document.getElementById('cardIllustration');
-  illust.style.background = mem.img ? '#fff' : fam.bg;
   const artImg = document.getElementById('artImg');
   const artPH = document.getElementById('artPH');
   if (mem.img) {
-    artImg.src = mem.img;
-    artImg.style.display = '';
+    artImg.style.display = 'none';
     artPH.style.display = 'none';
+    illust.style.background = 'none';
   } else {
     artImg.style.display = 'none';
     artPH.style.display = '';
@@ -331,7 +359,6 @@ function render() {
 
   // Members
   const membersDiv = document.getElementById('cardMembers');
-  membersDiv.style.background = fam.color;
   membersDiv.innerHTML = '';
   fam.members.forEach((m, i) => {
     const isActive = i === currentMember;
