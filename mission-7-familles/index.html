@@ -182,40 +182,37 @@
     opacity: 0.9;
   }
 
-  /* Silhouettes - bottom bandeau */
-  .card-members {
+  /* Caricatures row - under footer */
+  .caricatures-row {
     display: flex;
-    justify-content: space-evenly;
-    padding: 10px 12px 12px;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 20px 8px;
     flex-shrink: 0;
-    gap: 2px;
-    color: #fff;
+    background: #fff;
   }
-  .member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    font-family: 'Inter', sans-serif;
-    font-size: 8px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.7);
-  }
-  .member span { display: none; }
-  .member .sil {
-    width: 38px;
-    height: 50px;
-    border-radius: 8px;
+  .caricature {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    background: rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.6);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    border: 2px solid #ccc;
+    background: #eee;
+    color: #999;
+    transition: all 0.2s;
   }
-  .member.active .sil { background: #fff; color: var(--rose); }
-  .member.inactive .sil { background: rgba(255,255,255,0.2); }
-  .member.active span { font-family: 'Inter', sans-serif; font-weight: 600; color: #fff; }
+  .caricature.active {
+    border-color: currentColor;
+    background: currentColor;
+    color: #fff;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
+  }
 
   /* Navigation */
   .nav-row {
@@ -277,7 +274,7 @@
       <div class="char-name" id="charName">ALAIN SOUMIT</div>
       <div class="char-subtitle" id="charSubtitle">Le tribun cacochime</div>
     </div>
-    <div class="card-members" id="cardMembers"></div>
+    <div class="caricatures-row" id="caricaturesRow"></div>
     <div id="cardName" style="display:none"></div>
   </div>
 </div>
@@ -372,9 +369,21 @@ function render() {
   document.getElementById('charName').textContent = mem.name.toUpperCase();
   document.getElementById('charSubtitle').textContent = mem.subtitle || '';
 
-  // Members - hidden
-  const membersDiv = document.getElementById('cardMembers');
-  membersDiv.style.display = 'none';
+  // Caricatures row
+  const row = document.getElementById('caricaturesRow');
+  row.innerHTML = '';
+  fam.members.forEach((m, i) => {
+    const initials = m.name.split(' ').map(w => w[0]).join('');
+    const div = document.createElement('div');
+    div.className = 'caricature' + (i === currentMember ? ' active' : '');
+    if (i === currentMember) {
+      div.style.background = fam.color;
+      div.style.borderColor = fam.color;
+      div.style.color = fam.color;
+    }
+    div.textContent = initials;
+    row.appendChild(div);
+  });
 
   // Counter
   document.getElementById('counter').textContent = `${currentMember + 1} / 6`;
