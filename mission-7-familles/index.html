@@ -182,38 +182,6 @@
     opacity: 0.9;
   }
 
-  /* Caricatures row - under footer */
-  .caricatures-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 6px 20px 8px;
-    flex-shrink: 0;
-    background: #fff;
-  }
-  .caricature {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    border: 2px solid #ccc;
-    background: #eee;
-    color: #999;
-    transition: all 0.2s;
-  }
-  .caricature.active {
-    border-color: currentColor;
-    background: currentColor;
-    color: #fff;
-    transform: scale(1.15);
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
-  }
-
   /* Navigation */
   .nav-row {
     display: flex;
@@ -274,7 +242,6 @@
       <div class="char-name" id="charName">ALAIN SOUMIT</div>
       <div class="char-subtitle" id="charSubtitle">Le tribun cacochime</div>
     </div>
-    <div class="caricatures-row" id="caricaturesRow"></div>
     <div id="cardName" style="display:none"></div>
   </div>
 </div>
@@ -368,22 +335,6 @@ function render() {
   footer.style.background = fam.color;
   document.getElementById('charName').textContent = mem.name.toUpperCase();
   document.getElementById('charSubtitle').textContent = mem.subtitle || '';
-
-  // Caricatures row
-  const row = document.getElementById('caricaturesRow');
-  row.innerHTML = '';
-  fam.members.forEach((m, i) => {
-    const initials = m.name.split(' ').map(w => w[0]).join('');
-    const div = document.createElement('div');
-    div.className = 'caricature' + (i === currentMember ? ' active' : '');
-    if (i === currentMember) {
-      div.style.background = fam.color;
-      div.style.borderColor = fam.color;
-      div.style.color = fam.color;
-    }
-    div.textContent = initials;
-    row.appendChild(div);
-  });
 
   // Counter
   document.getElementById('counter').textContent = `${currentMember + 1} / 6`;
