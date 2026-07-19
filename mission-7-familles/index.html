@@ -169,24 +169,7 @@
   }
 
   /* Silhouettes */
-  .card-members {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 10px 12px 12px;
-    border-top: none;
-    flex-shrink: 0;
-    gap: 2px;
-    position: relative;
-  }
-  .card-members::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--rose);
-    opacity: 0.92;
-    z-index: -1;
-    border-radius: 0 0 14px 14px;
-  }
+  .card-members { display: none; }
   .member {
     display: flex;
     flex-direction: column;
