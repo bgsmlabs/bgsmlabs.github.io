@@ -363,8 +363,7 @@ function render() {
   slogan.textContent = '';
   slogan.style.display = 'none';
 
-  // Name + subtitle
-  document.getElementById('cardName').innerHTML = mem.name + (mem.subtitle ? '<br><small style="font-weight:400;opacity:0.6;font-size:11px">' + mem.subtitle + '</small>' : '');
+  // Name + subtitle (removed - uses card-footer instead)
 
   // Footer bandeau - character info
   const footer = document.getElementById('cardFooter');
