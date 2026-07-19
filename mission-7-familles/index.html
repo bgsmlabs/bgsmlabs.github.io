@@ -5,16 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission Élection — Jeu des 7 Familles</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
   :root {
-    --bg: #f5f0e8;
-    --text: #1a1a1a;
-    --muted: #999;
+    --bg: #F5F0E8;
+    --text: #1A1A1A;
+    --muted: #8C8279;
+    --accent: #3F2D60;
     --extreme-gauche: #C2185B;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    background: var(--bg);
-    font-family: Georgia, 'Times New Roman', serif;
+    background: #E8E2D5;
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -38,8 +40,10 @@
     border: none;
     padding: 8px 14px;
     border-radius: 20px;
-    font-family: Georgia, serif;
-    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     cursor: pointer;
     transition: all 0.2s;
     color: #fff;
@@ -57,8 +61,8 @@
   .card {
     width: 100%;
     height: 100%;
-    border-radius: 16px;
-    box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -76,14 +80,17 @@
     color: #fff;
   }
   .card-header .family-label {
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
-    letter-spacing: 0.15em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.9;
   }
   .card-header .family-name {
-    font-size: 22px;
-    font-weight: bold;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     margin-top: 2px;
   }
@@ -107,10 +114,12 @@
     left: 16px;
     right: 16px;
     text-align: center;
-    font-size: 12px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 14px;
     font-style: italic;
-    font-weight: bold;
-    background: rgba(255,255,255,0.8);
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(255,255,255,0.85);
     padding: 6px 12px;
     border-radius: 8px;
   }
@@ -120,8 +129,10 @@
     text-align: center;
     padding: 10px 20px 6px;
     flex-shrink: 0;
-    font-size: 20px;
-    font-weight: bold;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
   }
 
   /* Silhouettes */
@@ -129,7 +140,7 @@
     display: flex;
     justify-content: space-evenly;
     padding: 8px 12px 12px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid rgba(0,0,0,0.06);
     flex-shrink: 0;
     gap: 2px;
   }
@@ -138,8 +149,10 @@
     flex-direction: column;
     align-items: center;
     gap: 3px;
+    font-family: 'Inter', sans-serif;
     font-size: 8px;
-    color: #bbb;
+    font-weight: 400;
+    color: var(--muted);
   }
   .member .sil {
     width: 38px;
@@ -150,31 +163,33 @@
     justify-content: center;
     font-size: 24px;
   }
-  .member.active .sil { color: #fff; }
+  .member.active .sil { background: var(--extreme-gauche); color: #fff; }
   .member.inactive .sil { background: #eee; }
-  .member.active span { font-weight: bold; }
+  .member.active span { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--text); }
 
   /* Navigation */
   .nav-row {
     display: flex;
     align-items: center;
     gap: 16px;
+    font-family: 'Inter', sans-serif;
   }
   .nav-row button {
-    border: 1px solid rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.12);
     background: #fff;
-    border-radius: 50%;
+    border-radius: 8px;
     width: 44px;
     height: 44px;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.15s;
+    color: var(--text);
   }
-  .nav-row button:active { background: #eee; }
-  .nav-row .counter { font-size: 13px; color: var(--muted); min-width: 60px; text-align: center; }
+  .nav-row button:active { background: rgba(0,0,0,0.06); }
+  .nav-row .counter { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted); min-width: 60px; text-align: center; }
 
   /* Responsive */
   @media (max-width: 500px) {
@@ -225,7 +240,6 @@ const families = [
   {
     name: "LA FRANCE INGÉRABLE",
     color: "#C2185B",
-    sloganColor: "#C2185B",
     bg: "linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%)",
     members: [
       { name: "Alain Soumit", emoji: "👴", label: "grand-père", slogan: "« L'insoumission, c'est non-négociable. »" },
@@ -239,9 +253,8 @@ const families = [
   // Placeholder families (to be filled)
   ...Array(6).fill(null).map((_, i) => ({
     name: ["ÉCOLOGISTE", "SOCIAL-DÉMOCRATE", "CENTRE", "DROITE", "EXTRÊME DROITE", "RÉAC'"][i],
-    color: "#888",
-    sloganColor: "#666",
-    bg: "#eee",
+        color: "#888",
+        bg: "#eee",
     members: Array(6).fill(null).map((_, j) => ({
       name: `Personnage ${j+1}`,
       emoji: ["👴","👵","👨","👩","👦","👧"][j],
@@ -275,7 +288,7 @@ function render() {
   illust.querySelector('.art-placeholder').textContent = mem.emoji;
   const slogan = document.getElementById('cardSlogan');
   slogan.textContent = mem.slogan;
-  slogan.style.color = fam.sloganColor;
+  // slogan color now handled by CSS (--accent)
 
   // Name
   document.getElementById('cardName').textContent = mem.name;
