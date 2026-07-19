@@ -158,8 +158,15 @@
     color: var(--text);
   }
 
-  /* Silhouettes */
-  .card-members { display: none; }
+  /* Silhouettes - bottom bandeau */
+  .card-members {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 12px 12px;
+    flex-shrink: 0;
+    gap: 2px;
+    color: #fff;
+  }
   .member {
     display: flex;
     flex-direction: column;
@@ -333,6 +340,7 @@ function render() {
 
   // Members
   const membersDiv = document.getElementById('cardMembers');
+  membersDiv.style.background = fam.color;
   membersDiv.innerHTML = '';
   fam.members.forEach((m, i) => {
     const isActive = i === currentMember;
