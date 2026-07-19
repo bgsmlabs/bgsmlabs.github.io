@@ -78,6 +78,8 @@
     display: flex;
     flex-direction: column;
     background: #fff;
+    background-size: cover;
+    background-position: center top;
     transition: transform 0.3s, opacity 0.3s;
   }
   .card.swipe-left { transform: translateX(-120%) rotate(-5deg); opacity: 0; }
@@ -115,8 +117,6 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background-size: contain;
-    background-position: center;
   }
   .card-illustration .art-placeholder {
     font-size: 100px;
@@ -286,26 +286,25 @@ function render() {
     btn.classList.toggle('active', i === currentFamily);
   });
 
-  // Illustration background
+  // Card background
   const card = document.getElementById('card');
-  card.style.backgroundImage = '';
   const illust = document.getElementById('cardIllustration');
   const artImg = document.getElementById('artImg');
   const artPH = document.getElementById('artPH');
   if (mem.img) {
-    illust.style.backgroundImage = `url(${mem.img})`;
-    illust.style.backgroundSize = 'contain';
-    illust.style.backgroundPosition = 'center';
+    card.style.backgroundImage = `url(${mem.img})`;
+    illust.style.backgroundImage = '';
     artImg.style.display = 'none';
     artPH.style.display = 'none';
   } else {
+    card.style.backgroundImage = '';
     illust.style.backgroundImage = '';
     artImg.style.display = 'none';
     artPH.style.display = '';
     artPH.textContent = mem.emoji;
   }
 
-  // Header (always opaque — image is on illustration zone)
+  // Header (opaque — image covers full card underneath)
   const header = document.getElementById('cardHeader');
   header.style.background = fam.color;
   document.getElementById('familyName').textContent = fam.name;
