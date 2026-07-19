@@ -167,19 +167,19 @@
   }
   .card-footer .char-name {
     font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.9;
-    margin-bottom: 2px;
-  }
-  .card-footer .char-subtitle {
-    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 900;
     letter-spacing: 0.01em;
     text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .card-footer .char-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    opacity: 0.9;
   }
 
   /* Silhouettes - bottom bandeau */
@@ -274,8 +274,8 @@
       <div class="slogan" id="cardSlogan"></div>
     </div>
     <div class="card-footer" id="cardFooter">
-      <div class="char-name" id="charName">Le tribun cacochime</div>
-      <div class="char-subtitle" id="charSubtitle">ALAIN SOUMIT</div>
+      <div class="char-name" id="charName">ALAIN SOUMIT</div>
+      <div class="char-subtitle" id="charSubtitle">Le tribun cacochime</div>
     </div>
     <div class="card-members" id="cardMembers"></div>
   </div>
@@ -369,8 +369,8 @@ function render() {
   // Footer bandeau - character info
   const footer = document.getElementById('cardFooter');
   footer.style.background = fam.color;
-  document.getElementById('charName').textContent = mem.subtitle || '';
-  document.getElementById('charSubtitle').textContent = mem.name.toUpperCase();
+  document.getElementById('charName').textContent = mem.name.toUpperCase();
+  document.getElementById('charSubtitle').textContent = mem.subtitle || '';
 
   // Members - hidden
   const membersDiv = document.getElementById('cardMembers');
