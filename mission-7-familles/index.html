@@ -358,7 +358,8 @@ function render() {
     artPH.textContent = mem.emoji;
   }
   const slogan = document.getElementById('cardSlogan');
-  slogan.textContent = mem.slogan;
+  slogan.textContent = '';
+  slogan.style.display = 'none';
 
   // Name + subtitle
   document.getElementById('cardName').innerHTML = mem.name + (mem.subtitle ? '<br><small style="font-weight:400;opacity:0.6;font-size:11px">' + mem.subtitle + '</small>' : '');
@@ -369,25 +370,9 @@ function render() {
   document.getElementById('charName').textContent = mem.name.toUpperCase();
   document.getElementById('charSubtitle').textContent = mem.subtitle || '';
 
-  // Members
+  // Members - hidden
   const membersDiv = document.getElementById('cardMembers');
-  membersDiv.style.background = fam.color;
-  membersDiv.innerHTML = '';
-  fam.members.forEach((m, i) => {
-    const isActive = i === currentMember;
-    const div = document.createElement('div');
-    div.className = 'member ' + (isActive ? 'active' : 'inactive');
-    const sil = document.createElement('div');
-    sil.className = 'sil';
-    sil.style.background = isActive ? fam.color : '#eee';
-    sil.textContent = m.emoji;
-    const span = document.createElement('span');
-    span.textContent = m.label;
-    span.style.color = isActive ? fam.color : '';
-    div.appendChild(sil);
-    div.appendChild(span);
-    membersDiv.appendChild(div);
-  });
+  membersDiv.style.display = 'none';
 
   // Counter
   document.getElementById('counter').textContent = `${currentMember + 1} / 6`;
