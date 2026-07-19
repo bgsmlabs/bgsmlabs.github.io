@@ -92,16 +92,6 @@
     flex-shrink: 0;
     color: #fff;
     position: relative;
-    background: inherit;
-  }
-  .card-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--rose);
-    opacity: 0.92;
-    z-index: -1;
-    border-radius: 14px 14px 0 0;
   }
   .card-header .family-label {
     font-family: 'Inter', sans-serif;
@@ -319,6 +309,7 @@ function render() {
 
   // Header
   const header = document.getElementById('cardHeader');
+  header.style.background = mem.img ? fam.color + 'e6' : fam.color;
   document.getElementById('familyName').textContent = fam.name;
 
   // Illustration area - hide placeholders when image is card bg
