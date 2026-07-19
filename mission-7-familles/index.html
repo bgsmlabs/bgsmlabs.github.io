@@ -158,26 +158,28 @@
     color: var(--text);
   }
 
-  /* Bottom bandeau - character info */
+  /* Bottom bandeau - character info (mirrors card-header) */
   .card-footer {
     text-align: center;
-    padding: 10px 20px 12px;
+    padding: 12px 20px 10px;
     flex-shrink: 0;
     color: #fff;
   }
   .card-footer .char-name {
     font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 2px;
+  }
+  .card-footer .char-subtitle {
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-weight: 900;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-  }
-  .card-footer .char-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    opacity: 0.8;
-    margin-top: 2px;
   }
 
   /* Silhouettes - bottom bandeau */
@@ -272,8 +274,8 @@
       <div class="slogan" id="cardSlogan"></div>
     </div>
     <div class="card-footer" id="cardFooter">
-      <div class="char-name" id="charName">ALAIN SOUMIT</div>
-      <div class="char-subtitle" id="charSubtitle">Le tribun cacochime</div>
+      <div class="char-name" id="charName">Le tribun cacochime</div>
+      <div class="char-subtitle" id="charSubtitle">ALAIN SOUMIT</div>
     </div>
     <div class="card-members" id="cardMembers"></div>
   </div>
@@ -295,7 +297,7 @@ const families = [
     color: "#C2185B",
     bg: "linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%)",
     members: [
-      { name: "Alain Soumit", emoji: "👴", label: "grand-père", subtitle: "Le tribun insoumis", slogan: "L'insoumission, c'est non-négociable.", img: "alain-soumit.png" },
+      { name: "Alain Soumit", emoji: "👴", label: "grand-père", subtitle: "Le tribun cacochime", slogan: "L'insoumission, c'est non-négociable.", img: "alain-soumit.png" },
       { name: "Arlette Lagrève", emoji: "👵", label: "grand-mère", subtitle: "L'éternelle gréviste", slogan: "50 ans de grève, et je remets ça." },
       { name: "Mohamed Publik", emoji: "👨", label: "père", subtitle: "L'agitateur permanent", slogan: "On bloque tout, on partage tout !" },
       { name: "Ouria Boutefeu", emoji: "👩", label: "mère", subtitle: "La passionaria", slogan: "La révolution par le feu." },
@@ -367,8 +369,8 @@ function render() {
   // Footer bandeau - character info
   const footer = document.getElementById('cardFooter');
   footer.style.background = fam.color;
-  document.getElementById('charName').textContent = mem.name.toUpperCase();
-  document.getElementById('charSubtitle').textContent = mem.subtitle || '';
+  document.getElementById('charName').textContent = mem.subtitle || '';
+  document.getElementById('charSubtitle').textContent = mem.name.toUpperCase();
 
   // Members - hidden
   const membersDiv = document.getElementById('cardMembers');
