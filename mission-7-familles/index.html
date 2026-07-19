@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Élection — Jeu des 7 Familles</title>
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --text: #1a1a1a;
+    --muted: #999;
+    --extreme-gauche: #C2185B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: Georgia, 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* === Family selector === */
+  .family-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .family-nav button {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #fff;
+    opacity: 0.5;
+  }
+  .family-nav button.active { opacity: 1; transform: scale(1.05); }
+
+  /* === Card === */
+  .card-container {
+    position: relative;
+    width: min(85vw, 370px);
+    aspect-ratio: 63/88;
+    margin: 0 auto 24px;
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .card.swipe-left { transform: translateX(-120%) rotate(-5deg); opacity: 0; }
+  .card.swipe-right { transform: translateX(120%) rotate(5deg); opacity: 0; }
+
+  /* Card header */
+  .card-header {
+    text-align: center;
+    padding: 12px 20px 8px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .card-header .family-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .card-header .family-name {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  /* Illustration */
+  .card-illustration {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-illustration .art-placeholder {
+    font-size: 100px;
+    opacity: 0.6;
+  }
+  .card-illustration .slogan {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    right: 16px;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    background: rgba(255,255,255,0.8);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  /* Name */
+  .card-name {
+    text-align: center;
+    padding: 10px 20px 6px;
+    flex-shrink: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* Silhouettes */
+  .card-members {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 8px 12px 12px;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+    gap: 2px;
+  }
+  .member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 8px;
+    color: #bbb;
+  }
+  .member .sil {
+    width: 38px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .member.active .sil { color: #fff; }
+  .member.inactive .sil { background: #eee; }
+  .member.active span { font-weight: bold; }
+
+  /* Navigation */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .nav-row button {
+    border: 1px solid rgba(0,0,0,0.15);
+    background: #fff;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .nav-row button:active { background: #eee; }
+  .nav-row .counter { font-size: 13px; color: var(--muted); min-width: 60px; text-align: center; }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .card-container { width: 82vw; }
+    .family-nav button { font-size: 11px; padding: 6px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Family selector -->
+<div class="family-nav" id="familyNav">
+  <button data-idx="0" style="background:var(--extreme-gauche)">Extrême<br>Gauche</button>
+  <button data-idx="1" style="background:#888">Écologiste</button>
+  <button data-idx="2" style="background:#888">Social-<br>démocrate</button>
+  <button data-idx="3" style="background:#888">Centre</button>
+  <button data-idx="4" style="background:#888">Droite</button>
+  <button data-idx="5" style="background:#888">Extrême<br>droite</button>
+  <button data-idx="6" style="background:#888">Réac'</button>
+</div>
+
+<!-- Card -->
+<div class="card-container" id="cardContainer">
+  <div class="card" id="card">
+    <div class="card-header" id="cardHeader">
+      <div class="family-label">Jeu des 7 familles</div>
+      <div class="family-name" id="familyName">EXTRÊME GAUCHE</div>
+    </div>
+    <div class="card-illustration" id="cardIllustration">
+      <div class="art-placeholder">👴</div>
+      <div class="slogan" id="cardSlogan"></div>
+    </div>
+    <div class="card-name" id="cardName">Alain Soumit</div>
+    <div class="card-members" id="cardMembers"></div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-row">
+  <button onclick="prevCard()">◀</button>
+  <div class="counter" id="counter">1 / 6</div>
+  <button onclick="nextCard()">▶</button>
+</div>
+
+<script>
+// === DATA ===
+const families = [
+  {
+    name: "EXTRÊME GAUCHE",
+    color: "#C2185B",
+    sloganColor: "#C2185B",
+    bg: "linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%)",
+    members: [
+      { name: "Alain Soumit", emoji: "👴", label: "grand-père", slogan: "« L'insoumission, c'est non-négociable. »" },
+      { name: "Arlette Lagrève", emoji: "👵", label: "grand-mère", slogan: "« 50 ans de grève, et je remets ça. »" },
+      { name: "Mohamed Publik", emoji: "👨", label: "père", slogan: "« On bloque tout, on partage tout, on vous explique rien. »" },
+      { name: "Ouria Boutefeu", emoji: "👩", label: "mère", slogan: "« La révolution passera par moi. »" },
+      { name: "Thomas Woke", emoji: "👦", label: "fils", slogan: "« Déconstruisez-vous, moi je suis déjà parfait. »" },
+      { name: "Rima Kassos", emoji: "👧", label: "fille", slogan: "« Cassez tout, on verra après. »" },
+    ]
+  },
+  // Placeholder families (to be filled)
+  ...Array(6).fill(null).map((_, i) => ({
+    name: ["ÉCOLOGISTE", "SOCIAL-DÉMOCRATE", "CENTRE", "DROITE", "EXTRÊME DROITE", "RÉAC'"][i],
+    color: "#888",
+    sloganColor: "#666",
+    bg: "#eee",
+    members: Array(6).fill(null).map((_, j) => ({
+      name: `Personnage ${j+1}`,
+      emoji: ["👴","👵","👨","👩","👦","👧"][j],
+      label: ["grand-père","grand-mère","père","mère","fils","fille"][j],
+      slogan: "Slogan à définir"
+    }))
+  }))
+];
+
+let currentFamily = 0;
+let currentMember = 0;
+
+// === RENDER ===
+function render() {
+  const fam = families[currentFamily];
+  const mem = fam.members[currentMember];
+
+  // Family nav
+  document.querySelectorAll('#familyNav button').forEach((btn, i) => {
+    btn.classList.toggle('active', i === currentFamily);
+  });
+
+  // Header
+  const header = document.getElementById('cardHeader');
+  header.style.background = fam.color;
+  document.getElementById('familyName').textContent = fam.name;
+
+  // Illustration
+  const illust = document.getElementById('cardIllustration');
+  illust.style.background = fam.bg;
+  illust.querySelector('.art-placeholder').textContent = mem.emoji;
+  const slogan = document.getElementById('cardSlogan');
+  slogan.textContent = mem.slogan;
+  slogan.style.color = fam.sloganColor;
+
+  // Name
+  document.getElementById('cardName').textContent = mem.name;
+
+  // Members
+  const membersDiv = document.getElementById('cardMembers');
+  membersDiv.innerHTML = '';
+  fam.members.forEach((m, i) => {
+    const isActive = i === currentMember;
+    const div = document.createElement('div');
+    div.className = 'member ' + (isActive ? 'active' : 'inactive');
+    const sil = document.createElement('div');
+    sil.className = 'sil';
+    sil.style.background = isActive ? fam.color : '#eee';
+    sil.textContent = m.emoji;
+    const span = document.createElement('span');
+    span.textContent = m.label;
+    span.style.color = isActive ? fam.color : '';
+    div.appendChild(sil);
+    div.appendChild(span);
+    membersDiv.appendChild(div);
+  });
+
+  // Counter
+  document.getElementById('counter').textContent = `${currentMember + 1} / 6`;
+}
+
+// === NAVIGATION ===
+function nextCard() {
+  const fam = families[currentFamily];
+  if (currentMember < fam.members.length - 1) {
+    currentMember++;
+  } else {
+    currentFamily = (currentFamily + 1) % families.length;
+    currentMember = 0;
+  }
+  render();
+}
+
+function prevCard() {
+  if (currentMember > 0) {
+    currentMember--;
+  } else {
+    currentFamily = (currentFamily - 1 + families.length) % families.length;
+    currentMember = families[currentFamily].members.length - 1;
+  }
+  render();
+}
+
+// Family nav clicks
+document.getElementById('familyNav').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  currentFamily = parseInt(btn.dataset.idx);
+  currentMember = 0;
+  render();
+});
+
+// Swipe support
+let touchStartX = 0;
+document.getElementById('cardContainer').addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+document.getElementById('cardContainer').addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (diff < -50) nextCard();
+  if (diff > 50) prevCard();
+});
+
+// Init
+render();
+</script>
+
+</body>
+</html>
