@@ -78,8 +78,6 @@
     display: flex;
     flex-direction: column;
     background: #fff;
-    background-size: cover;
-    background-position: center top;
     transition: transform 0.3s, opacity 0.3s;
   }
   .card.swipe-left { transform: translateX(-120%) rotate(-5deg); opacity: 0; }
@@ -117,6 +115,8 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
   }
   .card-illustration .art-placeholder {
     font-size: 100px;
@@ -286,32 +286,29 @@ function render() {
     btn.classList.toggle('active', i === currentFamily);
   });
 
-  // Card background from illustration
+  // Illustration background
   const card = document.getElementById('card');
-  if (mem.img) {
-    card.style.backgroundImage = `url(${mem.img})`;
-  } else {
-    card.style.backgroundImage = '';
-  }
-
-  // Header
-  const header = document.getElementById('cardHeader');
-  header.style.background = mem.img ? fam.color + 'e6' : fam.color;
-  document.getElementById('familyName').textContent = fam.name;
-
-  // Illustration area - hide placeholders when image is card bg
+  card.style.backgroundImage = '';
   const illust = document.getElementById('cardIllustration');
   const artImg = document.getElementById('artImg');
   const artPH = document.getElementById('artPH');
   if (mem.img) {
+    illust.style.backgroundImage = `url(${mem.img})`;
+    illust.style.backgroundSize = 'cover';
+    illust.style.backgroundPosition = 'center';
     artImg.style.display = 'none';
     artPH.style.display = 'none';
-    illust.style.background = 'none';
   } else {
+    illust.style.backgroundImage = '';
     artImg.style.display = 'none';
     artPH.style.display = '';
     artPH.textContent = mem.emoji;
   }
+
+  // Header (always opaque — image is on illustration zone)
+  const header = document.getElementById('cardHeader');
+  header.style.background = fam.color;
+  document.getElementById('familyName').textContent = fam.name;
   const slogan = document.getElementById('cardSlogan');
   slogan.textContent = '';
   slogan.style.display = 'none';
